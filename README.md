@@ -1,2 +1,2 @@
-# test-source
-test-source
+# test-input
+test-input
