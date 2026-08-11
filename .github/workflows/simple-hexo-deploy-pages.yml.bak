@@ -1,0 +1,65 @@
+# simple-hexo-deploy-pages
+# github.com/shenjuexiao
+# 20260809
+
+# hexo.io/zh-cn/docs/github-pages
+# 在 GitHub Pages 上部署 Hexo
+# .github/workflows/pages.yml
+
+# .github/workflows/simple-hexo-deploy-pages.yml
+name: simple-hexo-deploy-actions
+
+on:
+  push:
+    branches: [ main, dev ]
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache
+      - run: npm install
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: public
+          path: ${{ github.workspace }}/public
+          retention-days: 1
+
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: public
+          path: ./public
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.ONE }}
+          external_repository: shenjuexiao/one
+          publish_branch: gh-pages
+          publish_dir: ./public
+          keep_files: false
+          force_orphan: false
+          commit_message: '🚀 Deploy static pages to gh-pages'
+          allow_empty_commit: false
+          cname: one.shenjuexiao.com
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"     
