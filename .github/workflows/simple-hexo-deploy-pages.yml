@@ -1,4 +1,4 @@
-# simple-hexo-deploy-pages
+# simple-hexo-deploy-pages.yml
 # github.com/shenjuexiao
 # 20260812
 
@@ -7,7 +7,7 @@
 # .github/workflows/pages.yml
 
 # .github/workflows/simple-hexo-deploy-pages.yml
-name: simple-hexo-deploy-actions
+name: simple-hexo-deploy-pages
 
 on:
   push:
@@ -52,6 +52,7 @@ jobs:
           path: ./public
       - uses: peaceiris/actions-gh-pages@v4
         with:
+          # personal_token: ${{ secrets.PERSONAL_TOKEN }}
           personal_token: ${{ secrets.ONE }}
           external_repository: ${{ github.respository }}
           publish_branch: gh-pages
@@ -60,6 +61,6 @@ jobs:
           force_orphan: false
           commit_message: '🚀 Deploy static pages to gh-pages'
           allow_empty_commit: false
-          cname: ${{ github.respository_owner }}.github.io/${{ github.event.respository.name }}
+          cname: ${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
           user_name: "github-actions[bot]"
-          user_email: "github-actions[bot]@users.noreply.github.com"     
+          user_email: "github-actions[bot]@users.noreply.github.com"

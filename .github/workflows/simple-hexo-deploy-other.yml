@@ -1,4 +1,4 @@
-# simple-hexo-deploy-pages
+# simple-hexo-deploy-other.yml
 # github.com/shenjuexiao
 # 20260812
 
@@ -6,7 +6,7 @@
 # 在 GitHub Pages 上部署 Hexo
 # .github/workflows/pages.yml
 
-# .github/workflows/simple-hexo-deploy-pages.yml
+# .github/workflows/simple-hexo-deploy-other.yml
 name: simple-hexo-deploy-actions
 
 on:
@@ -52,14 +52,15 @@ jobs:
           path: ./public
       - uses: peaceiris/actions-gh-pages@v4
         with:
+          # personal_token: ${{ secrets.PERSONAL_TOKEN }}
           personal_token: ${{ secrets.ONE }}
-          external_repository: shenjuexiao/one
+          external_repository: shenjuexiao/other
           publish_branch: gh-pages
           publish_dir: ./public
           keep_files: false
           force_orphan: false
           commit_message: '🚀 Deploy static pages to gh-pages'
           allow_empty_commit: false
-          cname: one.shenjuexiao.com
+          cname: other.shenjuexiao.com
           user_name: "github-actions[bot]"
-          user_email: "github-actions[bot]@users.noreply.github.com"     
+          user_email: "github-actions[bot]@users.noreply.github.com"
