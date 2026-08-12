@@ -7,7 +7,7 @@
 # .github/workflows/pages.yml
 
 # .github/workflows/simple-hexo-deploy-other.yml
-name: simple-hexo-deploy-actions
+name: simple-hexo-deploy-other
 
 on:
   push:
